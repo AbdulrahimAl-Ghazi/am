@@ -158,7 +158,7 @@
         document.getElementById('result').innerHTML = resultHtml;
     }
     function updateNormalValue() {
-        let highValue = parseFloat(document.getElementById('highValue').value);
+        let highValue = document.getElementById('highValue').value;
         let additionalValue = (highValue / 100) * 15;
         document.getElementById('numberShares').value = additionalValue;
     }
