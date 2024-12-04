@@ -53,6 +53,11 @@
 
 <div class="container">
     <h1>حساب الورثة</h1>
+    <br>
+    <label for="highValue">ادخل القيمة العليا: </label>
+    <input type="number" id="highValue" value="100">
+    <button onclick="updateNormalValue()">تغيير القيمة </button>
+    <br>
     <label for="numberShares">ادخل القيمة: </label>
     <input type="number" id="numberShares" value="15">
     <button onclick="calculateInheritance()">حساب</button>
@@ -152,6 +157,12 @@
             <div>نصيب كل بنت من بنات ناصر الاربع: ${everyDaughterNasser.toFixed(4)} (النسبة: ${everyDaughterNasserPercentage.toFixed(4)}%)</div>
         `;
         document.getElementById('result').innerHTML = resultHtml;
+    }
+    function updateNormalValue() {
+        let highValue = parseFloat(document.getElementById('highValue').value);
+        let additionalValue = (highValue * 15) / 100;
+        let newNormalValue = parseFloat(document.getElementById('numberShares').value) + additionalValue;
+        document.getElementById('numberShares').value = newNormalValue.toFixed(4);
     }
 </script>
 
