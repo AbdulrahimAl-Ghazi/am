@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب الورثة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 100px;
+            font-size: 16px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .result div {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>حساب الورثة</h1>
+    <label for="numberShares">ادخل القيمة: </label>
+    <input type="number" id="numberShares" value="15">
+    <button onclick="calculateInheritance()">حساب</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateInheritance() {
+        let numberShares = parseFloat(document.getElementById('numberShares').value);
+
+        // نسبة سعاية ناصر
+        let questRatio = 21.18666667;
+        let questShares = (questRatio * numberShares) / 100;
+
+        // المتبقي بعد السعاية
+        let haresRemaining = numberShares - questShares;
+        let percentageRemaining = (haresRemaining / numberShares) * 100;
+
+        // نصيب الاب حميد من بعد ولده
+        let firstSextant = haresRemaining / 6;
+        let firstSextantRatio = (firstSextant / numberShares) * 100;
+
+        // نصيب الام دولة بعد ولدها
+        let secondSextant = haresRemaining / 6;
+        let secondSextantRatio = (secondSextant / numberShares) * 100;
+
+        // نصيب الزوجة كاذية بعد زوجها
+        let firstPrice = haresRemaining / 8;
+        let firstPriceRatio = (firstPrice / numberShares) * 100;
+
+        // المتبقي يقسم بين الاولاد للذكر مثل حض الانثيين وهم ولد وثلاث بنات
+        let haresRemaining1 = haresRemaining - firstSextant - secondSextant - firstPrice;
+        let percentageRemaining1 = (haresRemaining1 / numberShares) * 100;
+
+        // مال الابن ناصر من بعد والده حميد
+        let nasserMoneyValue = (haresRemaining1 / 5) * 2;
+        let nasserMoneyPercentage = (nasserMoneyValue / numberShares) * 100;
+
+        // مال كل بنت من بعد والدها حميد وهن 3
+        let valuePerGirl = haresRemaining1 / 5;
+        let perGirl = (valuePerGirl / numberShares) * 100;
+
+        // نجمع كل مال ناصر حيث ان لديه السعاية وسدسي حميد ودولة ونصيبه من بعد والده
+        let nasserMoney = questShares + firstSextant + secondSextant + nasserMoneyValue;
+        let nasserMoneyPercentageTotal = (nasserMoney / numberShares) * 100;
+
+        // ورثة ناصر هم والدته, وزوجته, وسبعه ابنائه 3 اولاد و 4 بنات
+
+        // نصيب ام ناصر بعد ولدها وهو السدس
+        let shareUmNasser = nasserMoney / 6;
+        let shareUmNasserPercentage = (shareUmNasser / numberShares) * 100;
+
+        // نصيب زوجة ناصر بعد زوجها الثمن
+        let shareNasser = nasserMoney / 8;
+        let shareNasserPercentage = (shareNasser / numberShares) * 100;
+
+        // المتبقي من نصيب ناصر يقسم بين الابناء للذكر مثل حض الانثيين
+        let nasserRemaining = nasserMoney - shareUmNasser - shareNasser;
+        let nasserRemainingPercentage = (nasserRemaining / numberShares) * 100;
+
+        // مال كل ابن من ابناء ناصر مهم 3
+        let everySonNasser = (nasserRemaining / 10) * 2;
+        let everySonNasserPercentage = (everySonNasser / numberShares) * 100;
+
+        // مال كل بنت من بنات ناصر وهن 4
+        let everyDaughterNasser = nasserRemaining / 10;
+        let everyDaughterNasserPercentage = (everyDaughterNasser / numberShares) * 100;
+
+        //تنازل زوجة حميد عن ماسترثه من ابنها ناصر لاولاد ناصر الذكور الثلاثة مع نصيبهم من بعد والدهم ناصر
+        let everySonNasser1 = everySonNasser + (shareUmNasser / 3);
+        let everySonNasserPercentage1 = everySonNasser1 / numberShares * 100;
+
+        // عرض النتائج
+        let resultHtml = `
+            <div>نسبة سعاية ناصر: ${questShares.toFixed(4)} (النسبة: ${questRatio}%)</div>
+            <div>المتبقي بعد السعاية: ${haresRemaining.toFixed(4)} (النسبة: ${percentageRemaining.toFixed(4)}%)</div>
+            <div>نصيب الاب حميد (السدس): ${firstSextant.toFixed(4)} (النسبة: ${firstSextantRatio.toFixed(4)}%)</div>
+            <div>نصيب الام دولة (السدس): ${secondSextant.toFixed(4)} (النسبة: ${secondSextantRatio.toFixed(4)}%)</div>
+            <div>نصيب الزوجة (الثمن): ${firstPrice.toFixed(4)} (النسبة: ${firstPriceRatio.toFixed(4)}%)</div>
+            <div>المتبقي بعد القسمة بين الاولاد: ${haresRemaining1.toFixed(4)} (النسبة: ${percentageRemaining1.toFixed(4)}%)</div>
+            <div>مال الابن ناصر: ${nasserMoneyValue.toFixed(4)} (النسبة: ${nasserMoneyPercentage.toFixed(4)}%)</div>
+            <div>مال كل بنت: ${valuePerGirl.toFixed(4)} (النسبة: ${perGirl.toFixed(4)}%)</div>
+            <hr>
+            <div>مجموع مال ناصر - سدس الاب حميد - سدس الام دولة - سعاية ناصر - نصيب ناصر من ابيه: ${nasserMoney.toFixed(4)} (النسبة الكلية: ${nasserMoneyPercentageTotal.toFixed(4)}%)</div>
+            <div>نصيب ام ناصر (السدس): ${shareUmNasser.toFixed(4)} (النسبة: ${shareUmNasserPercentage.toFixed(4)}%)</div>
+            <div>نصيب زوجة ناصر (الثمن): ${shareNasser.toFixed(4)} (النسبة: ${shareNasserPercentage.toFixed(4)}%)</div>
+            <div>المتبقي من نصيب ناصر: ${nasserRemaining.toFixed(4)} (النسبة: ${nasserRemainingPercentage.toFixed(4)}%)</div>
+            <div>مال كل ابن من ابناء ناصر: ${everySonNasser.toFixed(4)} (النسبة: ${everySonNasserPercentage.toFixed(4)}%)</div>                                                                                                                                                                             
+            <div>مال كل بنت من بنات ناصر: ${everyDaughterNasser.toFixed(4)} (النسبة: ${everyDaughterNasserPercentage.toFixed(4)}%)</div>
+            <div>مال كل ابن من ابناء ناصر بعد تنازل زوجة حميد عن ماسترثه من ابنها ناصر لاولاد ناصر الذكور الثلاثة مع نصيبهم من بعد والدهم ناصر: ${everySonNasser1.toFixed(4)} (النسبة: ${everySonNasserPercentage1.toFixed(4)}%)</div>
+            <hr>
+            <div>نصب ام ناصر: ${firstPrice.toFixed(4)} (النسبة: ${firstPriceRatio.toFixed(4)}%)</div>
+            <div>نصيب كل بنت من بنات حميد الثلاث: ${valuePerGirl.toFixed(4)} (النسبة: ${perGirl.toFixed(4)}%)</div>
+            <div>نصيب زوجة ناصر: ${shareNasser.toFixed(4)} (النسبة: ${shareNasserPercentage.toFixed(4)}%)</div>  
+            <div>نصيب كل ولد من اولاد ناصر الثلاثة: ${everySonNasser1.toFixed(4)} (النسبة: ${everySonNasserPercentage1.toFixed(4)}%)</div>
+            <div>نصيب كل بنت من بنات ناصر الاربع: ${everyDaughterNasser.toFixed(4)} (النسبة: ${everyDaughterNasserPercentage.toFixed(4)}%)</div>
+        `;
+        document.getElementById('result').innerHTML = resultHtml;
+    }
+</script>
+
+</body>
+</html>
+
